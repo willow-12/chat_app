@@ -4,7 +4,7 @@ const sendBtn = document.getElementById('sendBtn');
 
 let messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
 
-// Render all messages
+// Render messages
 function renderMessages() {
     chatContainer.innerHTML = '';
     messages.forEach(msg => {
@@ -39,11 +39,24 @@ function sendMessage() {
     const text = messageInput.value.trim();
     if(!text) return;
 
+    // Your message
     const newMsg = { sender: 'you', text };
     messages.push(newMsg);
 
-    // Auto-reply from "friend"
-    const replyMsg = { sender: 'friend', text: `Echo: ${text}` };
+    // Random friend response
+    const responses = [
+        "Hello!",
+        "How are you?",
+        "That’s interesting 😊",
+        "Tell me more!",
+        "Wow, really?",
+        "I agree!",
+        "Haha 😄"
+    ];
+    const replyMsg = { 
+        sender: 'friend', 
+        text: responses[Math.floor(Math.random() * responses.length)]
+    };
     messages.push(replyMsg);
 
     localStorage.setItem('chatMessages', JSON.stringify(messages));
